@@ -1,5 +1,5 @@
-define(['backbone', 'views/about', 'views/winner', 'views/top', 'views/worst', 'views/fight', 'views/upload'],
-		function(Backbone, AboutView, WinnerView, TopView, WorstView, FightView, UploadView){
+define(['backbone', 'views/about', 'views/winner', 'views/top', 'views/worst', 'views/fight', 'views/search', 'views/upload'],
+		function(Backbone, AboutView, WinnerView, TopView, WorstView, FightView, SearchView, UploadView){
 	
 	var AppRouter = Backbone.Router.extend({
         routes: {
@@ -7,6 +7,7 @@ define(['backbone', 'views/about', 'views/winner', 'views/top', 'views/worst', '
             'top': 'top',
             'worst': 'worst',
             'elements' :"elements",
+            'search': 'search',
             'about': 'about',
             'upload': 'upload'
         },
@@ -21,6 +22,9 @@ define(['backbone', 'views/about', 'views/winner', 'views/top', 'views/worst', '
         },
         elements: function( ){
             new FightView({el: $('#main')});
+        },
+        search: function( ){
+            new SearchView({el: $('#main')});
         },
         about: function( ){
             new AboutView({el: $('#main')});
