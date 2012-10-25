@@ -8,6 +8,7 @@ import com.mysema.query.types.expr.NumberExpression;
 
 public final class ElementPredicats {
 
+	private ElementPredicats() { }
 	private static final QElement $ = QElement.element;
 	
 	
