@@ -1,0 +1,51 @@
+<div id="fileuploadContent">
+
+		<form id="fileuploadForm" action="fileupload" method="POST" enctype="multipart/form-data">
+			<input type="hidden" name="ajaxUpload" value="true" />
+  			<fieldset>
+			<legend>Create a new entry</legend>
+
+			<div class="control-group">
+				<label class="control-label" for="name">Name : </label>
+	  			<input type="text" required="required" class="span3" name="name" placeholder="Name">
+  			</div>
+  			<div class="control-group">
+	  			<label class="control-label" for="description">Description : </label>
+	  			<textarea class="input-xlarge" rows="3" name="description" placeholder="Description"></textarea>
+  			</div>
+  			<div class="control-group">
+  				<label class="control-label" for="file">Picture</label>
+  				<input id="file" name="file" type="file" style="display:none">
+				<div class="input-append">
+				   <input id="fileName" class="input-large" type="text" >
+				   <a class="btn" id="selectFile">Browse files</a>
+				</div>
+
+
+			</div>
+
+			<div class="form-actions">
+            	<button type="submit" class="btn btn-primary">Save</button>
+            	
+          	</div>
+          	</fieldset>
+          </form>
+          <script>
+			$(document).ready(function() {
+				$('#selectFile, #fileName').click( function(){
+						$("#file").trigger('click');
+						$("#file").change( function() {
+							var fileVal = $('#file').val();
+							var splitted = fileVal.split("\\");
+							$("#fileName").val(splitted[splitted.length -1]);
+						});
+				});
+
+				$("#fileuploadForm").ajaxForm({dataType: 'json', success: function(girl) {
+					$("#fileuploadContent").replaceWith("<img src='"+ girl.imgUrl + "' title='" + girl.name +"'/>");
+					}
+				});
+
+			});
+		</script>	
+	</div>

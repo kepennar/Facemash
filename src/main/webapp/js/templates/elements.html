@@ -1,0 +1,16 @@
+	<% _.each(elements, function(element ,key, list){ %>
+	<div class="well">
+	
+	    <h3><%= element.name %></h3>
+	    <div class="row-fluid show-grid">
+	    	<span class="span4">
+		    	<img class="elementPicture" src="<%= element.imgUrl %>" alt="Picture" />
+	    	</span>
+	    	<span class="span4">
+		    	 <%= element.description %><br>
+		    	 Score : <span class="badge <%= element.score>0? 'badge-success' : 'badge-important' %>"><%= element.score %></span><br>
+		    	 Played : <span class="badge"><%= element.played %></span>
+	    	 </span>
+	     </div>
+	</div>
+	<% }) %>

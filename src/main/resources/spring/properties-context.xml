@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        ">
+
+	<util:list id="propertiesFiles" >
+		<ref bean="applicationProps" /> 
+	</util:list>
+	<!-- Placeholders to import inherited variables -->
+	<bean id="properties" class="org.springframework.beans.factory.config.PropertiesFactoryBean"
+		p:propertiesArray-ref="propertiesFiles"
+	/>
+	<bean id="project-properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+		p:ignoreUnresolvablePlaceholders="true"
+		p:propertiesArray-ref="propertiesFiles"
+	/>
+
+	<beans profile="default" >
+		<util:properties id="applicationProps" location="classpath:properties/application_boat.properties" />
+	</beans>
+	<beans profile="boat" >
+		<util:properties id="applicationProps" location="classpath:properties/application_boat.properties" />
+	</beans>
+	<beans profile="girl" >
+		<util:properties id="applicationProps" location="classpath:properties/application_girl.properties" />
+	</beans>
+	
+	
+
+
+
+	
+
+</beans>

@@ -1,0 +1,36 @@
+	<% _.each(fights, function(fight ,key, list){ %>
+	<div class="row">
+	<div class="span2"></div>
+	<div class="span8">
+		   <h3 th:text="#{resources.who.the.best}">Vote for the hottest</h3> 
+	    <ul class="thumbnails">
+        <li class="span4">
+          
+            <a id="<%= fight.element1.id %>-<%= fight.element2.id %>" 
+            	href="#elements" class="thumbnail vote" rel="popover" data-content="Vote for <%= fight.element1.name %>">
+	            <img class="elementPicture" src="<%= fight.element1.imgUrl %>" alt="Picture" />
+	            <div class="caption">
+	              <h5><%= fight.element1.name %></h5>
+	              <p><%= fight.element2.description %></p>
+	            </div>
+           </a> 
+        </li>
+         
+        <li class="span4">
+          
+           <a id="<%= fight.element2.id %>-<%= fight.element1.id %>" 
+           		href="#elements" class="thumbnail vote" rel="popover" data-content="Vote for <%= fight.element2.name %>">
+	            <img class="elementPicture" src="<%= fight.element2.imgUrl %>" alt="Picture" />
+	            <div class="caption">
+	              <h5><%= fight.element2.name %></h5>
+	              <p><%= fight.element2.description %></p>
+	          
+	        
+          </div>
+          </a>
+        </li>
+      </ul>
+	    
+	</div>
+	</div>
+	<% }) %>
