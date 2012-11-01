@@ -10,7 +10,6 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<org.cloudfoundry-version>0.8.2</org.cloudfoundry-version>
 		<spring.data.commons.core.version>1.2.1.RELEASE</spring.data.commons.core.version>
 		<spring.data.mongodb.version>1.0.3.RELEASE</spring.data.mongodb.version>
 		<mongo.version>2.7.1</mongo.version>
@@ -22,7 +21,6 @@
 		<slf4j.version>1.6.6</slf4j.version>
 		<thymeleaf.version>2.0.13</thymeleaf.version>
 		<logback.version>1.0.6</logback.version>
-		<org.cloudfoundry-group>org.cloudfoundry</org.cloudfoundry-group>
 		<mysema-apt-maven-plugin.version>1.0.5</mysema-apt-maven-plugin.version>
 		<jetty.version>8.1.7.v20120910</jetty.version>
 		<jetty.port>8088</jetty.port>
@@ -30,12 +28,7 @@
 
 
 	<dependencies>
-		<!-- CloudFoundry -->
-		<dependency>
-			<groupId>org.cloudfoundry</groupId>
-			<artifactId>cloudfoundry-runtime</artifactId>
-			<version>${org.cloudfoundry-version}</version>
-		</dependency>
+		
 
 
 		<dependency>
@@ -329,11 +322,11 @@
 			    	</dependency>
 			    </dependencies>
 			</plugin>
-			<!--<plugin> <groupId>org.zeroturnaround</groupId> <artifactId>jrebel-maven-plugin</artifactId> 
-				<version>1.1.1</version> <executions> <execution> <id>generate-rebel-xml</id> 
-				<phase>process-resources</phase> <goals> <goal>generate</goal> </goals> </execution> 
-				</executions> </plugin> -->
-
+			<plugin>
+		        <groupId>org.codehaus.mojo</groupId>
+		        <artifactId>sonar-maven-plugin</artifactId>
+		        <version>2.0</version>
+		      </plugin>
 		</plugins>
 
 		<pluginManagement>
