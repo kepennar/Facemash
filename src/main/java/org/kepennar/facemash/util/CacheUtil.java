@@ -22,7 +22,7 @@ public class CacheUtil {
 	
 	public synchronized void play() {
 		if(tolalPlayed == null) {
-			tolalPlayed = new Integer(0);
+			tolalPlayed = 0;
 		}
 		tolalPlayed++;
 		if (broadcaster == null) {

@@ -1,5 +1,7 @@
 package org.kepennar.facemash.service.impl;
 
+import static org.kepennar.facemash.util.Constantes.NB_ELEMENTS_FOR_RANDOM;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -65,13 +67,13 @@ public class ElementServiceImpl implements ElementService {
 
 	@Override
 	public Fight getFight() {
-		Pageable pageRequest = new PageRequest(0, 5, Direction.ASC, "played");
+		Pageable pageRequest = new PageRequest(0, NB_ELEMENTS_FOR_RANDOM, Direction.ASC, "played");
 		List<Element> elements = elementRepository.findAll(pageRequest).getContent();
-		Integer random1 = (int) (Math.random()*5);
+		Integer random1 = (int) (Math.random()* NB_ELEMENTS_FOR_RANDOM);
 		Integer random2= null;
 		do {
-			random2 = (int) (Math.random()*5);
-		} while (random1 == random2);
+			random2 = (int) (Math.random()* NB_ELEMENTS_FOR_RANDOM);
+		} while (random1.equals(random2));
 		return new Fight(elements.get(random1), elements.get(random2));
 		
 	}
@@ -90,7 +92,7 @@ public class ElementServiceImpl implements ElementService {
 			int max = 0;
 			for (String fileName : names) {
 				String[] splittedFileName = fileName.split("\\.");
-				if(splittedFileName.length >0) {
+				if(splittedFileName.length > 0) {
 					try {
 						Integer imgNumber = Integer.valueOf(splittedFileName[0]);
 						if ( imgNumber != null && imgNumber.compareTo(max) > 0) {

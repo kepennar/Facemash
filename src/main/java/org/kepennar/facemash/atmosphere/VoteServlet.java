@@ -43,8 +43,7 @@ public class VoteServlet extends HttpServlet {
 
 	    private Broadcaster lookupBroadcaster(String pathInfo) {
 	        String[] decodedPath = pathInfo.split("/");
-	        Broadcaster b = BroadcasterFactory.getDefault().lookup(decodedPath[decodedPath.length - 1], true);
-	        return b;
+	        return BroadcasterFactory.getDefault().lookup(decodedPath[decodedPath.length - 1], true);
 	    }
 
 }
