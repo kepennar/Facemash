@@ -13,12 +13,16 @@ define([ 'underscore', 'backbone', 'collections/fight', 'models/vote',
 			
 			Fight.on("reset", self.render, self);
 			
+			$(document).bind( 'CloseView', this.close );
+	    	$("#main").fadeIn();
 
+			
 			Fight.fetch();
 
 		},
 
 		render : function() {
+			$(this.el).find(".thumbnail").fadeIn(800);
 			$(this.el).html(this.template({
 				fights : Fight.toJSON()
 			}));
@@ -26,6 +30,7 @@ define([ 'underscore', 'backbone', 'collections/fight', 'models/vote',
 		},
 
 		vote : function(event) {
+			$(this.el).find(".thumbnail").fadeOut();
 			var targ = (window.event) ? window.event.srcElement : event.target;
 			var ids = $(targ).closest("a").attr('id');
 			var splittedIds = ids.split("-");
@@ -45,6 +50,10 @@ define([ 'underscore', 'backbone', 'collections/fight', 'models/vote',
 				}
 			});
 		},
+	    close: function() {
+	    	  $(this).unbind();
+	    	$("#main").hide();
+	    },
 
 		events : {
 			"click a.vote" : "vote"

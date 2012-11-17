@@ -1,10 +1,10 @@
 	<% _.each(fights, function(fight ,key, list){ %>
 	<div class="row">
 	<div class="span2"></div>
-	<div class="span8">
+	<div class="span10">
 		   <h3 th:text="#{resources.who.the.best}">Vote for the hottest</h3> 
 	    <ul class="thumbnails">
-        <li class="span4">
+        <li class="span6">
           
             <a id="<%= fight.element1.id %>-<%= fight.element2.id %>" 
             	href="#elements" class="thumbnail vote" rel="popover" data-content="Vote for <%= fight.element1.name %>">
@@ -16,7 +16,7 @@
            </a> 
         </li>
          
-        <li class="span4">
+        <li class="span6">
           
            <a id="<%= fight.element2.id %>-<%= fight.element1.id %>" 
            		href="#elements" class="thumbnail vote" rel="popover" data-content="Vote for <%= fight.element2.name %>">

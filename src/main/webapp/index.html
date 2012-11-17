@@ -8,7 +8,7 @@
 <meta name="author" content="kepennar" />
 <link rel="shortcut icon" href="img/favicon.jpg"></link>
 <link rel="icon" href="img/favicon.jpg"></link>
-<link href="css/bootstrap.css" rel="stylesheet"></link>
+<link href="css/bootstrap.min.css" rel="stylesheet"></link>
 <link href="css/bootstrap-responsive.min.css" rel="stylesheet"></link>
 <link href="css/style.css" rel="stylesheet"></link>
 	<!--[if lt IE 9]>
@@ -24,7 +24,7 @@
 </head>
 
 <body>
-
+	<div class="wrapper">
 	<div class="navbar navbar-inverse navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container">
@@ -64,7 +64,7 @@
 				</div>
 			</div>
 			<div class="span10">
-				<div class="hero-unit">
+				<div class="hero-unit" style="display:none;">
 					<h1 th:text="#{resources.who.is.best.element}">Who is the best element ???</h1>
 					<p th:text="#{resources.vote.for.the.most.element}" >Vote</p>
 					<p>
@@ -73,7 +73,7 @@
 					</p>
 				</div>
 				<div id="totalVotes" ></div>
-				<div id="main"></div>
+				<div id="main" class="well"></div>
 
 
 
@@ -89,5 +89,6 @@
 			<p class="pull-right"><a href="#">Back to top</a></p>
 		</div>
 	</footer>
+	</div>
 </body>
 </html>

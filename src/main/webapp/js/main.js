@@ -11,7 +11,8 @@ require.config({
 });
 
 // Load our app module and pass it to our definition function
-require(['jquery', 'router', 'backbone', 'views/votes', 'navbar'] , function($, AppRouter,Backbone, VotesView) {   
+require(['jquery', 'router', 'backbone', 'views/votes', 'navbar'] , function($, AppRouter,Backbone, VotesView) { 
+	
     new AppRouter;
     Backbone.history.start();
     new VotesView({el: $('#totalVotes')});
