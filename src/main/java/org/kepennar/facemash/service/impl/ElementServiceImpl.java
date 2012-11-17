@@ -34,14 +34,8 @@ public class ElementServiceImpl implements ElementService {
 	@Value("${no_picture.image}")
 	public String noPicture;
 	
-	
+	@Inject @Named("elementRepository")
 	private ElementRepository elementRepository;
-
-	@Inject
-    @Named("elementRepository")
-	public void setElementRepository(ElementRepository elementRepository) {
-		this.elementRepository = elementRepository;
-	}
 
 	@Override
 	public Page<Element> getTopRated(int pageNumber, int pageSize) {

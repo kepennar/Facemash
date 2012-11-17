@@ -16,13 +16,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @RequestMapping(value = "/api/vote")
 public class VoteController {
 
+	@Inject @Named("voteService")
 	private VoteService voteService;
-	
-    @Inject
-    @Named("voteService")
-    public void setService(VoteService voteService) {
-        this.voteService = voteService;
-    }
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value=HttpStatus.OK)

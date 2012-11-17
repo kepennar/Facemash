@@ -15,8 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/fileupload")
 public class FileUploadController {
 
-	@Inject
-    @Named("elementService")
+	@Inject @Named("elementService")
 	private ElementService elementService;
 	
 

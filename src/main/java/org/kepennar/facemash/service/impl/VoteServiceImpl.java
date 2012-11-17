@@ -15,12 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class VoteServiceImpl implements VoteService {
 
 
-	@Inject
-    @Named("cacheUtil")
+	@Inject @Named("cacheUtil")
 	private CacheUtil cacheUtil;
 	
-	@Inject
-    @Named("elementRepository")
+	@Inject @Named("elementRepository")
 	private ElementRepository elementRepository;
 	
 	@Override
