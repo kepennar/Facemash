@@ -14,7 +14,7 @@ define([
       this.el = option.el;
       
       $(document).bind( 'CloseView', this.close );
-  	$("#main").fadeIn(500);
+      $("#main").fadeIn(500);
       
       Elements.fetch({success: this.render});
     },

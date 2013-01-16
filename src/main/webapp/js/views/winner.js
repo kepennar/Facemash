@@ -13,9 +13,9 @@ define([
     	$(document).bind( 'CloseView', this.close );
     	$("#main").fadeIn(500);
     	$(".hero-unit").fadeIn(500);
-      _.bindAll(this, 'render');
-      this.el = option.el;
-      Elements.fetch({success: this.render});
+    	_.bindAll(this, 'render');
+    	this.el = option.el;
+    	Elements.fetch({success: this.render});
     },
 
     render: function(model) {

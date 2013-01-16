@@ -8,15 +8,11 @@ define([ 'backbone', 'models/element' ], function(Backbone, Element) {
 		url : function() {
 			return "api/search/" + this.searchTerm;
 		},
-		search : function(searchTerm) {
+		search : function(searchTerm, onSuccess, onError) {
 			this.searchTerm = searchTerm;
 			this.fetch({
-				success : function() {
-					MyApp.vent.trigger("search:results", results);
-				},
-				error : function(collection, response) {
-					MyApp.vent.trigger("search:error", response);
-				}
+				success : onSuccess,
+				error : onError
 			});
 		}
 
