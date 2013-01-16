@@ -9,6 +9,7 @@ public class Element {
 
     @Id
     private String id;
+    private String family;
     private String imgUrl;
     private String name;
     private String description;
@@ -27,8 +28,8 @@ public class Element {
 		this.name = name;
 	}
 
-	public Element(String name, String imgUrl, String description) {
-        super();
+	public Element(String family, String name, String imgUrl, String description) {
+        this.family = family;
         this.name = name;
         this.imgUrl = imgUrl;
         this.description = description;
@@ -42,7 +43,15 @@ public class Element {
         this.id = id;
     }
 
-    public String getName() {
+	public String getFamily() {
+		return family;
+	}
+
+	public void setFamily(String family) {
+		this.family = family;
+	}
+
+	public String getName() {
         return name;
     }
 

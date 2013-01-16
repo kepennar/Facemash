@@ -22,10 +22,9 @@ public class ElementsInitializer implements InitializingBean {
     @Inject @Named("elementRepository")
     private ElementRepository elementRepository;
 
-    @Value("${images.directory}")
-    public String imgDirectory;
-    @Value("${init.file}")
-    public String initfile;
+    
+    public @Value("${images.directory}") String imgDirectory;
+    public @Value("${init.file}") String initfile;
     
     @Override
 	public void afterPropertiesSet() {
@@ -34,8 +33,7 @@ public class ElementsInitializer implements InitializingBean {
 	
 		MappingIterator<Element> elementsIterator = null;
 		try {
-			InputStream in = this.getClass().getClassLoader()
-                    .getResourceAsStream(initfile);
+			InputStream in = this.getClass().getClassLoader().getResourceAsStream(initfile);
     		JsonParser parser = mapper.getJsonFactory().createJsonParser(in);
     		elementsIterator = mapper.readValues(parser, Element.class);  
 		} catch (IOException e) {

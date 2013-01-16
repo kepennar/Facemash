@@ -27,12 +27,11 @@ import org.springframework.web.multipart.MultipartFile;
 @Transactional(readOnly= true)
 public class ElementServiceImpl implements ElementService {
 
-	@Value("${webapp.directory}")
-	public String webAppDir;
-	@Value("${images.directory}")
-	public String imagesDir;
-	@Value("${no_picture.image}")
-	public String noPicture;
+	
+	public @Value("${webapp.directory}") String webAppDir;
+	public @Value("${images.directory}") String imagesDir;
+	public @Value("${no_picture.image}") String noPicture;
+	public @Value("${family}") String family;
 	
 	@Inject @Named("elementRepository")
 	private ElementRepository elementRepository;
@@ -77,7 +76,7 @@ public class ElementServiceImpl implements ElementService {
 	public Element createElement(String name, String description, MultipartFile file) {
 		Element elem = null;
 		if (file == null || file.getSize() == 0) {
-			elem = new Element(name, imagesDir + noPicture, description);
+			elem = new Element(family, name, imagesDir + noPicture, description);
 		} else {
 		
 			String dirPath = webAppDir + imagesDir;
@@ -112,7 +111,7 @@ public class ElementServiceImpl implements ElementService {
 			} catch (IOException  e) {
 				e.printStackTrace();
 			}
-			elem = new Element(name, imagesDir + pictureName, description);
+			elem = new Element(family, name, imagesDir + pictureName, description);
 		}
 		elementRepository.save(elem);
 		return elem;

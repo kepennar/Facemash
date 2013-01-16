@@ -17,7 +17,7 @@ public class SearchController {
 	@RequestMapping(value = "/{criteria}", method = RequestMethod.GET)
 	@ResponseBody
 	public String templateIndex(@PathVariable String criteria) {
-		return "searched!!!";
+		return "search for criteria " + criteria;
 	}
 
 }
