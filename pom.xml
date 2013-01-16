@@ -13,7 +13,7 @@
 		<spring.data.commons.core.version>1.2.1.RELEASE</spring.data.commons.core.version>
 		<spring.data.mongodb.version>1.0.3.RELEASE</spring.data.mongodb.version>
 		<mongo.version>2.7.1</mongo.version>
-		<spring.version>3.1.2.RELEASE</spring.version>
+		<spring.version>3.2.0.RELEASE</spring.version>
 		<atmosphere.version>1.0.2</atmosphere.version>
 		<servlet.version>3.0.1</servlet.version>
 		<jackson.version>2.0.2</jackson.version>
@@ -22,13 +22,13 @@
 		<thymeleaf.version>2.0.13</thymeleaf.version>
 		<logback.version>1.0.6</logback.version>
 		<mysema-apt-maven-plugin.version>1.0.5</mysema-apt-maven-plugin.version>
+		<annotation-detector.version>3.0.0</annotation-detector.version>
 		<jetty.version>8.1.7.v20120910</jetty.version>
 		<jetty.port>8088</jetty.port>
 	</properties>
 
-
 	<dependencies>
-		
+
 
 
 		<dependency>
@@ -112,17 +112,11 @@
 			</exclusions>
 		</dependency>
 
-
-
 		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
 			<version>${mongo.version}</version>
 		</dependency>
-
-
-
-
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -201,12 +195,7 @@
 			<artifactId>annox</artifactId>
 			<version>0.5.1</version>
 		</dependency>
-		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib-nodep</artifactId>
-			<version>2.2</version>
-		</dependency>
-
+		
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
@@ -222,30 +211,36 @@
 			<artifactId>aspectjweaver</artifactId>
 			<version>1.6.11</version>
 		</dependency>
-		
+
 		<dependency>
-		<groupId>org.thymeleaf</groupId>
-		<artifactId>thymeleaf</artifactId>
-		<version>${thymeleaf.version}</version>
-	</dependency>
-	            <dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf</artifactId>
+			<version>${thymeleaf.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.thymeleaf</groupId>
 			<artifactId>thymeleaf-spring3</artifactId>
 			<version>${thymeleaf.version}</version>
 		</dependency>
-            
+
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
-		            
+
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>${logback.version}</version>
 		</dependency>
-		            	
+
+		<!-- This is ONLY required if you use Atmosphere's annotation. If you use atmosphere.xml, not required -->
+        <dependency>
+            <groupId>eu.infomas</groupId>
+            <artifactId>annotation-detector</artifactId>
+            <version>${annotation-detector.version}</version>
+        </dependency>
 
 	</dependencies>
 
@@ -290,9 +285,9 @@
 						<configuration>
 							<outputDirectory>target/generated-sources</outputDirectory>
 							<processor>org.springframework.data.mongodb.repository.support.MongoAnnotationProcessor</processor>
-							<options>                
+							<options>
 								<querydsl.entityAccessors>true</querydsl.entityAccessors>
-				            </options>  
+							</options>
 						</configuration>
 					</execution>
 				</executions>
@@ -305,28 +300,50 @@
 					<scanIntervalSeconds>0</scanIntervalSeconds>
 					<webAppSourceDirectory>src/main/webapp</webAppSourceDirectory>
 					<!-- We use non NIO connector in order to avoid read only static files 
-						under windows -->
+						under windows 
+					
 					<connectors>
 						<connector implementation="org.eclipse.jetty.server.bio.SocketConnector">
 							<port>${jetty.port}</port>
 							<maxIdleTime>60000</maxIdleTime>
 						</connector>
 					</connectors>
+					-->
 				</configuration>
 				<dependencies>
-				
+
 					<dependency>
-			        	<groupId>org.eclipse.jetty</groupId>
-			        	<artifactId>jetty-websocket</artifactId>
-			        	<version>${jetty.version}</version>
-			    	</dependency>
-			    </dependencies>
+			            <groupId>org.apache.geronimo.specs</groupId>
+			            <artifactId>geronimo-servlet_3.0_spec</artifactId>
+			            <version>1.0</version>
+			        </dependency>
+				</dependencies>
 			</plugin>
 			<plugin>
-		        <groupId>org.codehaus.mojo</groupId>
-		        <artifactId>sonar-maven-plugin</artifactId>
-		        <version>2.0</version>
-		      </plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>2.0</version>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<executable>mvn</executable>
+					<arguments>
+						<argument>-X</argument>
+						<argument>jetty:run</argument>
+						<argument>-Dspring.profiles.active="boat"</argument>
+					</arguments>
+				</configuration>
+			</plugin>
 		</plugins>
 
 		<pluginManagement>
