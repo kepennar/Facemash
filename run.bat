@@ -1,1 +1,1 @@
-mvn -Dspring.profiles.active="girl" jetty:run
+mvn -Dspring.profiles.active="boat" jetty:run
