@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ElementController {
 
 	private static final Integer PAGE_SIZE = 5;
+	
 	@Inject @Named("elementService")
 	private ElementService elementService;
 	

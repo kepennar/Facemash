@@ -15,6 +15,7 @@ import org.atmosphere.cpr.Meteor;
 import org.atmosphere.interceptor.AtmosphereResourceLifecycleInterceptor;
 import org.atmosphere.websocket.WebSocketEventListenerAdapter;
 
+@SuppressWarnings("serial")
 @MeteorService(path = "/realtime/votes",
 interceptors = {
         AtmosphereResourceLifecycleInterceptor.class})

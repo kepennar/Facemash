@@ -1,5 +1,7 @@
 package org.kepennar.facemash.model;
 
+import org.apache.solr.client.solrj.beans.Field;
+import org.kepennar.facemash.solr.model.SearchableElement;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -8,12 +10,23 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Element {
 
     @Id
+    @Field(SearchableElement.ID)
     private String id;
+   
+    @Field(SearchableElement.FAMILY)
     private String family;
+   
     private String imgUrl;
+    
+    @Field(SearchableElement.NAME)
     private String name;
+    
+    @Field(SearchableElement.DESCRIPTION)
     private String description;
+    
+    @Field(SearchableElement.SCORE)
     private int score;
+    
     private int played;
 
     @Transient

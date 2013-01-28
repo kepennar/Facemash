@@ -10,11 +10,12 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<spring.data.commons.core.version>1.2.1.RELEASE</spring.data.commons.core.version>
-		<spring.data.mongodb.version>1.0.3.RELEASE</spring.data.mongodb.version>
+		<spring.data.commons.core.version>1.4.0.RELEASE</spring.data.commons.core.version>
+		<spring.data.mongodb.version>1.1.1.RELEASE</spring.data.mongodb.version>
+		<spring.data-solr.version>1.0.0.M1</spring.data-solr.version>
 		<mongo.version>2.7.1</mongo.version>
 		<spring.version>3.2.0.RELEASE</spring.version>
-		<atmosphere.version>1.0.2</atmosphere.version>
+		<atmosphere.version>1.0.9</atmosphere.version>
 		<servlet.version>3.0.1</servlet.version>
 		<jackson.version>2.0.2</jackson.version>
 		<async.http.client.version>1.7.5</async.http.client.version>
@@ -111,7 +112,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-solr</artifactId>
+			<version>${spring.data-solr.version}</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>

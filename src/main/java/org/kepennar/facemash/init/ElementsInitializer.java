@@ -11,6 +11,7 @@ import org.codehaus.jackson.map.MappingIterator;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.kepennar.facemash.model.Element;
 import org.kepennar.facemash.repository.ElementRepository;
+import org.kepennar.facemash.solr.repository.SolrElementRepository;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -22,6 +23,8 @@ public class ElementsInitializer implements InitializingBean {
     @Inject @Named("elementRepository")
     private ElementRepository elementRepository;
 
+    @Inject @Named("solrElementRepository")
+    private SolrElementRepository solrElementRepository;
     
     public @Value("${images.directory}") String imgDirectory;
     public @Value("${init.file}") String initfile;
@@ -40,7 +43,7 @@ public class ElementsInitializer implements InitializingBean {
 			e.printStackTrace();
 		}
     	
-    	elementRepository.deleteAll();
+		elementRepository.deleteAll();
 
     	if (elementsIterator != null) {
     		while (elementsIterator.hasNext()) {
@@ -49,6 +52,9 @@ public class ElementsInitializer implements InitializingBean {
     			elem.setImgUrl(imgDirectory + imgurl);
     			
     			elementRepository.save(elem);
+    			
+    			solrElementRepository.save(elem);
+    	
     		}
     	}
     }

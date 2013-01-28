@@ -14,6 +14,7 @@ import org.kepennar.facemash.model.Element;
 import org.kepennar.facemash.mvc.model.Fight;
 import org.kepennar.facemash.repository.ElementRepository;
 import org.kepennar.facemash.service.ElementService;
+import org.kepennar.facemash.service.SearchElementService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -35,7 +36,9 @@ public class ElementServiceImpl implements ElementService {
 	
 	@Inject @Named("elementRepository")
 	private ElementRepository elementRepository;
-
+	@Inject @Named("searchElementService")
+	private SearchElementService searchElementService;
+	
 	@Override
 	public Page<Element> getTopRated(int pageNumber, int pageSize) {
 		Pageable pageRequest = new PageRequest(pageNumber, pageSize, Direction.DESC, "score");
@@ -125,5 +128,7 @@ public class ElementServiceImpl implements ElementService {
 		}
 		return totalPLayed != 0 ? totalPLayed/2 : totalPLayed;
 	}
+
+	
 
 }

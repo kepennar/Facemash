@@ -1,0 +1,9 @@
+[ {"_class" : "org.kepennar.facemash.model.Element", "family": "boats", "imgUrl":"/1.jpg", "name":"Boat1", "description":"A nice boat"},
+	{"_class" : "org.kepennar.facemash.model.Element", "family": "boats", "imgUrl":"/2.jpg", "name":"Boat2", "description":"A cool boat"},
+	{"_class" : "org.kepennar.facemash.model.Element", "family": "boats", "imgUrl":"/3.jpg", "name":"Boat3", "description":"Fast boat"},
+	{"_class" : "org.kepennar.facemash.model.Element", "family": "boats", "imgUrl":"/4.jpg", "name":"Boat4", "description":"Very fast boat"},
+	{"_class" : "org.kepennar.facemash.model.Element", "family": "boats", "imgUrl":"/5.jpg", "name":"Boat5", "description":"Trimaran"},
+	{"_class" : "org.kepennar.facemash.model.Element", "family": "boats", "imgUrl":"/6.jpg", "name":"Boat6", "description":"Small boat"},
+	{"_class" : "org.kepennar.facemash.model.Element", "family": "boats", "imgUrl":"/7.jpg", "name":"Boat7", "description":"thingy"},
+	{"_class" : "org.kepennar.facemash.model.Element", "family": "boats", "imgUrl":"/8.jpg", "name":"Boat8", "description":"Ferry"},
+	{"_class" : "org.kepennar.facemash.model.Element", "family": "boats", "imgUrl":"/8.jpg", "name":"Boat8", "description":"A far boat"} ]
