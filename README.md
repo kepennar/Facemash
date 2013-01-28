@@ -25,5 +25,5 @@ Configure MongoDB connection params in :
 
 Configure Solr url in :
 ```
-/Facemash/src/main/resources/database.properties
+/Facemash/src/main/resources/solr.properties
 ```
