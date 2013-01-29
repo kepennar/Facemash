@@ -6,6 +6,7 @@ import javax.inject.Named;
 import org.kepennar.facemash.model.Element;
 import org.kepennar.facemash.repository.ElementRepository;
 import org.kepennar.facemash.service.VoteService;
+import org.kepennar.facemash.solr.repository.SolrElementRepository;
 import org.kepennar.facemash.util.CacheUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,9 @@ public class VoteServiceImpl implements VoteService {
 	
 	@Inject @Named("elementRepository")
 	private ElementRepository elementRepository;
+
+    @Inject @Named("solrElementRepository")
+    private SolrElementRepository solrElementRepository;
 	
 	@Override
 	@Transactional
@@ -38,6 +42,7 @@ public class VoteServiceImpl implements VoteService {
 		loser.setScore(--loserScore);
 		
 		elementRepository.save(winner);
+		solrElementRepository.save(winner);
 		elementRepository.save(loser);
 		
 		cacheUtil.play();

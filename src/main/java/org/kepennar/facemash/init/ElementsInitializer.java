@@ -44,7 +44,8 @@ public class ElementsInitializer implements InitializingBean {
 		}
     	
 		elementRepository.deleteAll();
-
+		solrElementRepository.deleteAll();
+		
     	if (elementsIterator != null) {
     		while (elementsIterator.hasNext()) {
     			Element elem = elementsIterator.next();

@@ -16,6 +16,7 @@ public enum SearchableElementFields implements Field {
 	private SearchableElementFields(String fieldName) {
 		this.fieldName = fieldName;
 	}
+	
 	@Override
 	public String getName() {
 		return fieldName;

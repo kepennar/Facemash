@@ -10,11 +10,14 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.kepennar.facemash.exception.TechnicalException;
 import org.kepennar.facemash.model.Element;
 import org.kepennar.facemash.mvc.model.Fight;
 import org.kepennar.facemash.repository.ElementRepository;
 import org.kepennar.facemash.service.ElementService;
 import org.kepennar.facemash.service.SearchElementService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Transactional(readOnly= true)
 public class ElementServiceImpl implements ElementService {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(ElementServiceImpl.class);
 	
 	public @Value("${webapp.directory}") String webAppDir;
 	public @Value("${images.directory}") String imagesDir;
@@ -39,6 +43,7 @@ public class ElementServiceImpl implements ElementService {
 	@Inject @Named("searchElementService")
 	private SearchElementService searchElementService;
 	
+	
 	@Override
 	public Page<Element> getTopRated(int pageNumber, int pageSize) {
 		Pageable pageRequest = new PageRequest(pageNumber, pageSize, Direction.DESC, "score");
@@ -46,6 +51,7 @@ public class ElementServiceImpl implements ElementService {
 		return elementRepository.findAll(pageRequest);
 	}
 
+	
 	@Override
 	public Page<Element> getWorstRated(int pageNumber, int pageSize) {
 		Pageable pageRequest = new PageRequest(pageNumber, pageSize, Direction.ASC, "score");
@@ -53,6 +59,7 @@ public class ElementServiceImpl implements ElementService {
 		return elementRepository.findAll(pageRequest);
 	}
 
+	
 	@Override
 	public Element getWinner() {
 		Pageable pageRequest = new PageRequest(0, 1, Direction.DESC, "score");
@@ -61,6 +68,7 @@ public class ElementServiceImpl implements ElementService {
 		return page.getContent().get(0);
 	}
 
+	
 	@Override
 	public Fight getFight() {
 		Pageable pageRequest = new PageRequest(0, NB_ELEMENTS_FOR_RANDOM, Direction.ASC, "played");
@@ -79,27 +87,13 @@ public class ElementServiceImpl implements ElementService {
 	public Element createElement(String name, String description, MultipartFile file) {
 		Element elem = null;
 		if (file == null || file.getSize() == 0) {
-			elem = new Element(family, name, imagesDir + noPicture, description);
+			elem = new Element(family, name, imagesDir + "/" + noPicture, description);
 		} else {
 		
 			String dirPath = webAppDir + imagesDir;
 			File f = new File(dirPath);
-			String[] names = f.list();
-			int max = 0;
-			for (String fileName : names) {
-				String[] splittedFileName = fileName.split("\\.");
-				if(splittedFileName.length > 0) {
-					try {
-						Integer imgNumber = Integer.valueOf(splittedFileName[0]);
-						if ( imgNumber != null && imgNumber.compareTo(max) > 0) {
-							max = imgNumber;
-						}
-					} catch (NumberFormatException e) {
-						continue;
-					}
-					
-				}
-			}
+			
+			int max = getLastImgNumber(f.list());
 			
 			FileOutputStream fileOut;
 			String pictureName = null;
@@ -110,15 +104,17 @@ public class ElementServiceImpl implements ElementService {
 				fileOut.write(file.getBytes());
 				pictureName = "/" + imgNumber +".jpg";
 				fileOut.close();
-				
-			} catch (IOException  e) {
-				e.printStackTrace();
+			} catch (IOException e) {
+				LOGGER.error("Error saving element picture", e);
+				throw new TechnicalException(e);
 			}
 			elem = new Element(family, name, imagesDir + pictureName, description);
 		}
 		elementRepository.save(elem);
 		return elem;
 	}
+	
+	
 	@Override
 	public int getTotalPlayed() {
 		List<Element> elements = elementRepository.findAll();
@@ -129,6 +125,25 @@ public class ElementServiceImpl implements ElementService {
 		return totalPLayed != 0 ? totalPLayed/2 : totalPLayed;
 	}
 
+	
+	private int getLastImgNumber(String... imgNames) {
+		int max = 0;
+		for (String fileName : imgNames) {
+			String[] splittedFileName = fileName.split("\\.");
+			if(splittedFileName.length > 0) {
+				try {
+					Integer imgNumber = Integer.valueOf(splittedFileName[0]);
+					if ( imgNumber != null && imgNumber.compareTo(max) > 0) {
+						max = imgNumber;
+					}
+				} catch (NumberFormatException e) {
+					continue;
+				}
+				
+			}
+		}
+		return max;
+	}
 	
 
 }
