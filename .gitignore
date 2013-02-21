@@ -164,3 +164,4 @@ pip-log.txt
 /target
 /run-mongo.bat
 /run-solr.bat
+/tools
