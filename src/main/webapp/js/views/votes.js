@@ -31,7 +31,6 @@ define([
             detectedTransport = response.transport;
             if (response.status == 200) {
                 var data = response.responseBody;
-                console.log("data= " + data);
                 if (data.length > 0) {
                 	self.render(data);
                 	

@@ -1,43 +1,48 @@
-define([ 'underscore', 'backbone', 'collections/search', 'text!templates/search.html' ], 
-	function(_, Backbone, Search, templateSource) {
-		var SearchView = Backbone.View.extend({
-		// compile template
+define([
+	'underscore',
+	'mainView',
+	'collections/search',
+	'text!templates/search.html'
+	], function(_, MainView, Search, templateSource) {
+	var SearchView = MainView.extend({
+		
+		// compile templates
 		template : _.template(templateSource),
-		
+	    
 		initialize : function(option) {
-		
-			_.bindAll(this, 'render');
-			this.el = option.el;
-		
-			$(document).bind('CloseView', this.close);
-			$("#main").fadeIn(500);
+			this.constructor.__super__.initialize.apply(this, [ option ]);
 			
-			Search.search("wat", this.render, function() {console.log("Error in searchView");});
+			var self = this;
+			$("#searchDiv").show();
+        	
+			_.bindAll(this, 'render');
+			
+			$(document).bind('CloseView', this.close);
+			
+			this.el.html("");
+			
 		},
-		
-		events : {
-			"change input#criteria" : "contentChanged"
-		}, 
 		
 		render : function(model) {
 			(this.el).html(this.template({
 				elements : model.toJSON()
 			}));
-			this.criteriaInput = this.el.find('input#criteria');
+			
 		},
 		
-		contentChanged : function() {
-			console.log("change search term");
-			var searchTerm = this.criteriaInput.val();
-			console.log("searchterm = " + searchTerm);
-			Search.search(searchTerm, this.render, function() {console.log("Error in searchView");});
+		contentChanged : function(searchTerm) {
+			if (typeof searchTerm !== 'undefined' && searchTerm.length > 3) {
+				Search.search(searchTerm, this.render, function() {console.log("Error in searchView");});
+			}
 		},
 		
 		close : function() {
 			$(this).unbind();
+			$('div#searchDiv').find('input#criteria').unbind();
+			$("#searchDiv").hide(100);
 			$("#main").hide();
-		},
-		
+		}
+	
 	});
 	return SearchView;
 });

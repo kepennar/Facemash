@@ -1,32 +1,34 @@
 define([
   'underscore',
-  'backbone',
+  'mainView',
   'collections/top',
   'text!templates/elements.html'
-  ], function(_, Backbone, Elements, templateSource){
-  var TopView = Backbone.View.extend({
-      
-    // compile template
-    template: _.template(templateSource),
-        
-    initialize: function(option) {
-      _.bindAll(this, 'render');
-      this.el = option.el;
-      
-      $(document).bind( 'CloseView', this.close );
-      $("#main").fadeIn(500);
-      
-      Elements.fetch({success: this.render});
-    },
+  ], function(_, MainView, Elements, templateSource){
+	  var TopView = MainView.extend({
+		
+		  template : _.template(templateSource),
 
-    render: function(model) {
-      (this.el).html(this.template({elements: model.toJSON()}));
-    },
-    close: function() {
-    	  $(this).unbind();
-    	$("#main").hide();
-    }
+		initialize : function(option) {
+			this.constructor.__super__.initialize.apply(this, [ option ]);
 
-  });
-  return TopView;
+			_.bindAll(this, 'render');
+			$(document).bind('CloseView', this.close);
+
+			Elements.fetch({
+				success : this.render
+			});
+		},
+
+		render : function(model) {
+			(this.el).html(this.template({
+				elements : model.toJSON()
+			}));
+		},
+		close : function() {
+			$(this).unbind();
+			$("#main").hide();
+		}
+
+	});
+	return TopView;
 });

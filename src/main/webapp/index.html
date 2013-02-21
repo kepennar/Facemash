@@ -64,7 +64,9 @@
 				</div>
 			</div>
 			<div class="span10">
-				<div class="hero-unit" style="display:none;">
+				
+				<div id="alertDiv"></div>
+				<div class="hero-unit quiet">
 					<h1 th:text="#{resources.who.is.best.element}">Who is the best element ???</h1>
 					<p th:text="#{resources.vote.for.the.most.element}" >Vote</p>
 					<p>
@@ -73,6 +75,15 @@
 					</p>
 				</div>
 				<div id="totalVotes" ></div>
+				<div id="searchDiv" class="well quiet">
+					<fieldset>
+						<legend>Search</legend>
+				
+						<div class="control-group">
+							<input type="text" class="span3" name="criteria" id="criteria" placeholder="Search"></input>
+						</div>
+					</fieldset>
+				</div>
 				<div id="main" class="well"></div>
 
 

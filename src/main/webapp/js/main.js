@@ -6,14 +6,45 @@ require.config({
     'backbone': 'libs/backbone',
     'text': 'libs/text',	
     'jqueryform': 'libs/jqueryform',
-    'atmosphere' : 'libs/jquery.atmosphere'
-  }
+    'atmosphere' : 'libs/jquery.atmosphere',
+    'mainView' : 'views/MainView',
+    'bAlert' : 'libs/bootstrap-alert'
+  },
+  shim: {
+		"backbone": {
+	        deps: ["underscore", "jquery"],
+	        exports: "Backbone"
+	    },
+        'underscore': {
+            exports: '_'
+        }, 
+        'atmosphere': {
+        	deps: ["jquery"],
+        	exports: "atmosphere"
+        }, 
+        'bAlert': {
+        	deps: ["jquery"],
+        	exports: "bAlert"
+        }
+  },
+  waitSeconds: 15
 });
 
+
+ 
+
 // Load our app module and pass it to our definition function
-require(['jquery', 'router', 'backbone', 'views/votes', 'navbar'] , function($, AppRouter,Backbone, VotesView) { 
+define(['router', 'views/votes', 'navbar', 'bAlert'] , function(AppRouter, VotesView) { 
+	'use strict';
 	
-    new AppRouter;
+	var $alertDiv = $("#alertDiv");
+	
+	$alertDiv.bind('closed', function () {
+		$(this).find("#alertTitle").html("");
+		$(this).find("#alertMessage").html("");
+	});
+	
+	new AppRouter;
     Backbone.history.start();
     new VotesView({el: $('#totalVotes')});
     

@@ -1,22 +1,25 @@
-define([ 'underscore', 'backbone', 'collections/fight', 'models/vote',
-		'text!templates/fight.html' ], function(_, Backbone, Fight, Vote,
-		templateSource) {
-	var FightView = Backbone.View.extend({
-		tagname : 'div',
-		// compile template
+define([
+	'underscore',
+	'mainView',
+	'collections/fight',
+	'models/vote',
+	'text!templates/fight.html'
+	], function(_, MainView, Fight, Vote, templateSource) {
+	var FightView = MainView.extend({
+		
 		template : _.template(templateSource),
 
 		initialize : function(option) {
-			this.el = option.el;
+			this.constructor.__super__.initialize.apply(this, [ option ]);
+
 			$(this.el).unbind();
 			var self = this;
-			
-			Fight.on("reset", self.render, self);
-			
-			$(document).bind( 'CloseView', this.close );
-	    	$("#main").fadeIn();
 
+			Fight.on("reset", self.render, self);
+
+			$(document).bind('CloseView', this.close);
 			
+
 			Fight.fetch();
 
 		},
@@ -50,10 +53,10 @@ define([ 'underscore', 'backbone', 'collections/fight', 'models/vote',
 				}
 			});
 		},
-	    close: function() {
-	    	  $(this).unbind();
-	    	$("#main").hide();
-	    },
+		close : function() {
+			$(this).unbind();
+			$("#main").hide();
+		},
 
 		events : {
 			"click a.vote" : "vote"

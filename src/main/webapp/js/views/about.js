@@ -1,31 +1,29 @@
 define([
-  'underscore',
-  'backbone',
-  'text!templates/about.html'
-  ], function(_, Backbone, templateSource){
-  var AboutView = Backbone.View.extend({
-      
-    // compile template
-    template: _.template(templateSource),
+	'underscore',
+	'mainView',
+	'text!templates/about.html'
+	], function(_, MainView, templateSource) {
+	var AboutView = MainView.extend({
 
-    initialize: function(option) {
-      _.bindAll(this, 'render');
-      this.el = option.el;
-      
-      $(document).bind( 'CloseView', this.close );
-  	$("#main").fadeIn(500);
-      
-      this.render();
-    },
+		// compile template
+		template : _.template(templateSource),
 
-    render: function(model) {
-      (this.el).html(this.template());
-    },
-    close: function() {
-  	  $(this).unbind();
-    	$("#main").hide();
-    }
+		initialize : function(option) {
+			this.constructor.__super__.initialize.apply(this, [ option ]);
+			_.bindAll(this, 'render');
+			$(document).bind('CloseView', this.close);
 
-  });
-  return AboutView;
+			this.render();
+		},
+
+		render : function(model) {
+			(this.el).html(this.template());
+		},
+
+		close : function() {
+			$(this).unbind();
+			$("#main").hide();
+		}
+	});
+	return AboutView;
 });
