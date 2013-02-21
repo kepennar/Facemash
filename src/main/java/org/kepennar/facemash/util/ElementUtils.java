@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class ElementUtils {
 
-	public @Value("${no_picture.image}") String noPicture;
-	public @Value("${images.directory}") String imagesDir;
-	public @Value("${family}") String family;
+	private @Value("${no_picture.image}") String noPicture;
+	private @Value("${images.directory}") String imagesDir;
+	private @Value("${family}") String family;
 	
 	public Element newNoResultElement() {
 		return new Element(FamilyEnum.getFamilyEnumFromKey(family).getKey(), "No result", imagesDir + "/" + noPicture, "No result");

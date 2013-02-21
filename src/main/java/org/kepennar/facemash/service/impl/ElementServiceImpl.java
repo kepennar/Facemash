@@ -33,10 +33,10 @@ public class ElementServiceImpl implements ElementService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ElementServiceImpl.class);
 	
-	public @Value("${webapp.directory}") String webAppDir;
-	public @Value("${images.directory}") String imagesDir;
-	public @Value("${no_picture.image}") String noPicture;
-	public @Value("${family}") String family;
+	private @Value("${webapp.directory}") String webAppDir;
+	private @Value("${images.directory}") String imagesDir;
+	private @Value("${no_picture.image}") String noPicture;
+	private @Value("${family}") String family;
 	
 	@Inject @Named("elementRepository")
 	private ElementRepository elementRepository;
@@ -93,7 +93,8 @@ public class ElementServiceImpl implements ElementService {
 			String dirPath = webAppDir + imagesDir;
 			File f = new File(dirPath);
 			
-			int max = getLastImgNumber(f.list());
+			String[] filesList = f.list();
+			int max = filesList != null ? getLastImgNumber(f.list()) : 0;
 			
 			FileOutputStream fileOut;
 			String pictureName = null;
@@ -111,6 +112,7 @@ public class ElementServiceImpl implements ElementService {
 			elem = new Element(family, name, imagesDir + pictureName, description);
 		}
 		elementRepository.save(elem);
+		searchElementService.registerElement(elem);
 		return elem;
 	}
 	

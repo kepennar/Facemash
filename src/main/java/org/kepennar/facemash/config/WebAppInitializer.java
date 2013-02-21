@@ -22,10 +22,10 @@ public class WebAppInitializer implements WebApplicationInitializer {
                 
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(appContext));
         dispatcher.setLoadOnStartup(1);
+      
         dispatcher.addMapping("/*");
-        
         servletContext.addListener(new ContextLoaderListener(appContext));
-        
+       
         /* Atmosphere */
         ServletRegistration.Dynamic meteor = servletContext.addServlet("atmosphereServlet", new MeteorServlet());
         
@@ -33,17 +33,16 @@ public class WebAppInitializer implements WebApplicationInitializer {
         meteor.addMapping("/realtime/*");
         meteor.setLoadOnStartup(3);
 
-        meteor.setInitParameter("org.atmosphere.servlet",
+        meteor.setInitParameter(
+        		"org.atmosphere.servlet",
                 "org.kepennar.facemash.atmosphere.VoteServlet");
-
-        meteor.setInitParameter("org.atmosphere.cpr.broadcasterCacheClass",
+        meteor.setInitParameter(
+        		"org.atmosphere.cpr.broadcasterCacheClass",
                 "org.atmosphere.cache.HeaderBroadcasterCache");
-
-        meteor.setInitParameter("org.atmosphere.cpr.broadcastFilterClasses",
+        meteor.setInitParameter(
+        		"org.atmosphere.cpr.broadcastFilterClasses",
                 "org.atmosphere.client.TrackMessageSizeFilter");
-
-        meteor.setInitParameter("org.atmosphere.useNative",
-                "true");
+        meteor.setInitParameter("org.atmosphere.useNative", "true");
        
     }
 }

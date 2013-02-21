@@ -19,7 +19,7 @@ import com.google.common.collect.Lists;
 @Service("searchElementService")
 public class SearchElementServiceImpl implements SearchElementService {
 
-	private static final Function<Element, String> elementsIds = new ElementsIdsFunction();
+	private static final Function<Element, String> ELEMENTS_ID = new ElementsIdsFunction();
 	
 	
 	@Autowired private SolrElementRepository solrElementRepository;
@@ -28,7 +28,7 @@ public class SearchElementServiceImpl implements SearchElementService {
 	@Override
 	public List<Element> searchElement(String term) {
 		List<Element> elementListFounded = solrElementRepository.findByNameOrDescriptionOrderByScoreDesc(term, term);
-		Collection<String> ids = Collections2.transform(elementListFounded, elementsIds);
+		Collection<String> ids = Collections2.transform(elementListFounded, ELEMENTS_ID);
 		
 		return Lists.newArrayList(elementRepository.findAll(ids));
 	}
@@ -39,6 +39,11 @@ public class SearchElementServiceImpl implements SearchElementService {
 		public String apply(@Nullable Element elem) {
 			return elem != null ? elem.getId() : null;
 		}
+	}
+
+	@Override
+	public void registerElement(Element pElement) {
+		solrElementRepository.save(pElement);
 	}
 
 }

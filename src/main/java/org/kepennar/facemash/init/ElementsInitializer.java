@@ -12,6 +12,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.kepennar.facemash.model.Element;
 import org.kepennar.facemash.repository.ElementRepository;
 import org.kepennar.facemash.solr.repository.SolrElementRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -19,15 +21,17 @@ import org.springframework.beans.factory.annotation.Value;
 
 @Named("elementsInitializer")
 public class ElementsInitializer implements InitializingBean {
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(ElementsInitializer.class);
+	
+	
     @Inject @Named("elementRepository")
     private ElementRepository elementRepository;
 
     @Inject @Named("solrElementRepository")
     private SolrElementRepository solrElementRepository;
     
-    public @Value("${images.directory}") String imgDirectory;
-    public @Value("${init.file}") String initfile;
+    private @Value("${images.directory}") String imgDirectory;
+    private @Value("${init.file}") String initfile;
     
     @Override
 	public void afterPropertiesSet() {
@@ -39,8 +43,8 @@ public class ElementsInitializer implements InitializingBean {
 			InputStream in = this.getClass().getClassLoader().getResourceAsStream(initfile);
     		JsonParser parser = mapper.getJsonFactory().createJsonParser(in);
     		elementsIterator = mapper.readValues(parser, Element.class);  
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException ioE) {
+			LOGGER.error("Error deserializing init data (json)", ioE);
 		}
     	
 		elementRepository.deleteAll();

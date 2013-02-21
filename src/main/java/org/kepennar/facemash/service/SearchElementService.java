@@ -7,4 +7,5 @@ import org.kepennar.facemash.model.Element;
 public interface SearchElementService {
 
 	List<Element> searchElement(String term);
+	void registerElement(Element pElement);
 }
