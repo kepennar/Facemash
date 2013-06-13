@@ -26,7 +26,7 @@ public final class ElementPredicats {
 	}
 	
 	public static BooleanExpression nameLike(String name) {
-		return $.name.upper().like("%" + name.toUpperCase() + "%");
+		return $.name.like("%" + name + "%");
 	}
 	
 	public static BooleanExpression descriptionEq(String description) {
@@ -34,7 +34,7 @@ public final class ElementPredicats {
 	}
 	
 	public static BooleanExpression descriptionLike(String description) {
-		return $.description.upper().like("%" + description.toUpperCase() + "%");
+		return $.description.like("%" + description + "%");
 	}
 	
 	public static BooleanExpression familyEq(String family) {

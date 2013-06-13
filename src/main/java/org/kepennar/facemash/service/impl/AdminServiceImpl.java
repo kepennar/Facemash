@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.base.Preconditions;
 import com.mysema.query.types.expr.BooleanExpression;
-import com.mysema.query.types.template.BooleanTemplate;
 
 @Service("adminService")
 public class AdminServiceImpl implements AdminService {
@@ -32,14 +31,21 @@ public class AdminServiceImpl implements AdminService {
 	public PageResponse<Element> getElementPage(PageRequest pageRequest) {
 		Preconditions.checkNotNull(pageRequest);
 		
-		BooleanExpression predicat = BooleanTemplate.create("1=1");
+		// Criteria generation
+		BooleanExpression predicat = null;
 		if (!StringUtils.isEmpty(pageRequest.getsSearch())) {
-			predicat = predicat.and(ElementPredicats.nameLike(pageRequest.getsSearch()));
+			predicat =ElementPredicats.nameLike(pageRequest.getsSearch());
 			predicat = predicat.or(ElementPredicats.descriptionLike(pageRequest.getsSearch()));
 		}
-		
 		Pageable pageable = PageRequest2Pageable.convert(pageRequest);
-		Page<Element> page = elementRepository.findAll(predicat, pageable);
+		
+		// Search 
+		Page<Element> page = null;
+		if (predicat != null) {
+			page = elementRepository.findAll(predicat, pageable);
+		} else {
+			page = elementRepository.findAll(pageable);
+		}
 		return new PageResponse<Element>(page.getContent(), pageRequest, page.getTotalElements());
 
 	}
