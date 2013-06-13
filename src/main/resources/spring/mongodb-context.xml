@@ -1,6 +1,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mongo="http://www.springframework.org/schema/data/mongo"
-	xmlns:cloud="http://schema.cloudfoundry.org/spring" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:cloud="http://schema.cloudfoundry.org/spring" 
+	xmlns:context="http://www.springframework.org/schema/context"
   	xmlns:repository="http://www.springframework.org/schema/data/repository"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
@@ -22,7 +24,9 @@
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg ref="mongoDbFactory" />
 	</bean>
-	
+	<!-- 
+	<bean id="userAccountCascadingListenener" class="org.kepennar.facemash.springdata.mongodb.CascadingMongoEventListener" />
+	 -->
 	<beans profile="default, boat, girl">
 		<context:property-placeholder location="classpath*:database.properties"
 			properties-ref="databaseProperties" ignore-resource-not-found="true"

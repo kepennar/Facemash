@@ -11,6 +11,7 @@
     <import resource="classpath*:spring/solr-context.xml" />
     <import resource="classpath*:spring/mvc-context.xml" />
     <import resource="classpath*:spring/properties-context.xml"/>
+    <import resource="classpath*:spring/security-context.xml"/>
     <context:component-scan base-package="org.kepennar.facemash" />
     
   	

@@ -25,6 +25,22 @@ public final class ElementPredicats {
 		return $.name.eq(name);
 	}
 	
+	public static BooleanExpression nameLike(String name) {
+		return $.name.upper().like("%" + name.toUpperCase() + "%");
+	}
+	
+	public static BooleanExpression descriptionEq(String description) {
+		return $.description.eq(description);
+	}
+	
+	public static BooleanExpression descriptionLike(String description) {
+		return $.description.upper().like("%" + description.toUpperCase() + "%");
+	}
+	
+	public static BooleanExpression familyEq(String family) {
+		return $.family.eq(family);
+	}
+	
 	public static NumberExpression<Integer> sumPLay() {
 		return $.played.sum();
 	}

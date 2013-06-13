@@ -1,28 +1,33 @@
 // Set the require.js configuration for your application.
 require.config({
   paths: {
-    'jquery': 'libs/jquery',
-    'underscore': 'libs/underscore',
-    'backbone': 'libs/backbone',
-    'text': 'libs/text',	
-    'jqueryform': 'libs/jqueryform',
-    'atmosphere' : 'libs/jquery.atmosphere',
-    'mainView' : 'views/MainView',
-    'bAlert' : 'libs/bootstrap-alert'
+    jquery: 'libs/jquery',
+    underscore: 'libs/underscore',
+    backbone: 'libs/backbone',
+    marionette: 'libs/backbone.Marionette.min.js',
+    text: 'libs/text',	
+    jqueryform: 'libs/jqueryform',
+    atmosphere: 'libs/jquery.atmosphere',
+    mainView: 'views/MainView',
+    bAlert: 'libs/bootstrap-alert'
   },
   shim: {
-		"backbone": {
+		backbone: {
 	        deps: ["underscore", "jquery"],
 	        exports: "Backbone"
 	    },
-        'underscore': {
+	    marionette : {
+	        deps : ['jquery', 'underscore', 'backbone'],
+	        exports : 'Marionette'
+	    },
+        underscore: {
             exports: '_'
         }, 
-        'atmosphere': {
+        atmosphere: {
         	deps: ["jquery"],
         	exports: "atmosphere"
         }, 
-        'bAlert': {
+        bAlert: {
         	deps: ["jquery"],
         	exports: "bAlert"
         }
